@@ -1,0 +1,6 @@
+---
+- type: replace
+  path: /releases/name=softhsm
+  value:
+    name: softhsm
+    version: latest
