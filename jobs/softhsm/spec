@@ -1,6 +1,6 @@
 ---
 name: softhsm
-packages: []
+packages: [softhsm]
 templates:
   ignoreme: ignoreme
 properties: {}

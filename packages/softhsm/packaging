@@ -1,0 +1,14 @@
+set -e # exit immediately if a simple command exits with a non-zero status
+set -u # report the usage of uninitialized variables
+
+# Detect # of CPUs so make jobs can be parallelized
+CPUS=$(grep -c ^processor /proc/cpuinfo)
+
+tar xfv softhsm/SoftHSMv2-*.tar.gz
+cd SoftHSMv2-*/
+
+# TODO: package autoconf in BOSH release
+apt-get install dh-autoreconf -y
+sh ./autogen.sh
+./configure --prefix=${BOSH_INSTALL_TARGET}
+make -j${CPUS} && make install

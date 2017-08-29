@@ -2,6 +2,9 @@
 
 This BOSH release and deployment manifest deploy a cluster of softhsm.
 
+* [Concourse CI](https://ci.starkandwayne.com/teams/main/pipelines/softhsm-boshrelease)
+* Pull requests will be automatically tested against a bosh-lite (see `testflight-pr` job)
+
 ## Install
 
 ```

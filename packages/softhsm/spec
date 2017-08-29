@@ -1,0 +1,5 @@
+---
+name: softhsm
+dependencies: []
+files:
+- softhsm/SoftHSMv2-*.tar.gz
