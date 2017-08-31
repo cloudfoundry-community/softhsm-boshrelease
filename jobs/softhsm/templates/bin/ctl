@@ -21,6 +21,9 @@ case $1 in
     chown vcap:vcap -R /var/vcap/store/softhsm/tokendir
 
     export SOFTHSM2_CONF=$JOB_DIR/config/softhsm2.conf
+    # Also copy $SOFTHSM2_CONF to default location to allow other
+    # users of library to easily find configuration
+    cp $JOB_DIR/config/softhsm2.conf /var/vcap/packages/softhsm/etc/softhsm2.conf
 
     <%
       p("slots", []).each_with_index do |slot, index|
@@ -38,6 +41,8 @@ case $1 in
         --pin    "<%= user_pin %>"
     else
       echo "Slot label '<%= label %>' already exists. Skipping initialization."
+
+      softhsm2-util  --show-slots
     fi
     <% end -%>
 
