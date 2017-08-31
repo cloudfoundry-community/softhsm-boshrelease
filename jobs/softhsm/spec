@@ -1,6 +1,25 @@
 ---
 name: softhsm
+
 packages: [softhsm]
 templates:
-  ignoreme: ignoreme
-properties: {}
+  bin/ctl: bin/ctl
+  bin/monit_debugger: bin/monit_debugger
+  config/softhsm2.conf: config/softhsm2.conf
+  helpers/ctl_setup.sh: helpers/ctl_setup.sh
+  helpers/ctl_utils.sh: helpers/ctl_utils.sh
+
+provides:
+- name: softhsm
+  type: hsm
+  properties:
+  - slots
+
+properties:
+  slots:
+    description: List of slots of initialize if missing. Optional. SO can manually initialize using softhsm-util.
+    example:
+    - slot:     0
+      label:    vault
+      so_pin:   9111 # security officer pin
+      user_pin: 1234 # user pin

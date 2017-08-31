@@ -11,7 +11,12 @@ instance_groups:
   jobs:
   - name: softhsm
     release: softhsm
-    properties: {}
+    properties:
+      slots:
+      - slot:     0
+        label:    bosh
+        so_pin:   ((hsm-4digit-so-pin)) # security officer pin
+        user_pin: ((hsm-4digit-user-pin)) # user pin
 
 variables: []
 

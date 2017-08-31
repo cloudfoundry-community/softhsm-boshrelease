@@ -1,0 +1,58 @@
+#!/bin/bash
+
+set -e # exit immediately if a simple command exits with a non-zero status
+set -u # report the usage of uninitialized variables
+
+# Setup env vars and folders for the webapp_ctl script
+source /var/vcap/jobs/softhsm/helpers/ctl_setup.sh 'softhsm'
+
+export PORT=${PORT:-5000}
+export LANG=en_US.UTF-8
+
+case $1 in
+
+  start)
+    pid_guard $PIDFILE $JOB_NAME
+
+    # store pid in $PIDFILE
+    echo $$ > $PIDFILE
+
+    mkdir -p /var/vcap/store/softhsm/tokendir
+    chown vcap:vcap -R /var/vcap/store/softhsm/tokendir
+
+    export SOFTHSM2_CONF=$JOB_DIR/config/softhsm2.conf
+
+    <%
+      p("slots", []).each_with_index do |slot, index|
+        slot_num = slot["slot"]
+        label    = slot["label"]
+        so_pin   = slot["so_pin"]
+        user_pin = slot["user_pin"]
+    -%>
+    if [[ -z $(softhsm2-util --show-slots | grep "Label: *<%= label %> \s*$") ]]; then
+      echo "Slot label '<%= label %>' does not yet exist, initializing..."
+      softhsm2-util --init-token \
+        --slot   "<%= slot_num %>" \
+        --label  "<%= label %>" \
+        --so-pin "<%= so_pin %>" \
+        --pin    "<%= user_pin %>"
+    else
+      echo "Slot label '<%= label %>' already exists. Skipping initialization."
+    fi
+    <% end -%>
+
+    tail -f /dev/null
+
+    ;;
+
+  stop)
+    kill_and_wait $PIDFILE
+
+    ;;
+  *)
+    echo "Usage: ctl {start|stop}"
+
+    ;;
+
+esac
+exit 0
