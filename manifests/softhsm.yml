@@ -34,6 +34,6 @@ update:
 
 releases:
 - name: softhsm
-  version: latest # TODO: update after first final release
-  # url:            TODO: update after first final release
-  # sha1:           TODO: update after first final release
+  version: 1.0.0
+  url: https://github.com/starkandwayne/softhsm-boshrelease/releases/download/v1.0.0/softhsm-1.0.0.tgz
+  sha1: b439705cef039078e1fd16472086d2cc03e4bf49
