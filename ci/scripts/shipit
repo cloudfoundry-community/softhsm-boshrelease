@@ -24,7 +24,6 @@ header() {
 : ${BRANCH:?required}
 : ${GITHUB_OWNER:?required}
 : ${VERSION_FROM:?required}
-: ${MANIFEST_PATH:?required}
 : ${AWS_ACCESS_KEY:?required}
 : ${AWS_SECRET_KEY:?required}
 
@@ -102,7 +101,9 @@ if [[ -z $(git config --global user.name) ]]; then
 fi
 
 (cd ${REPO_ROOT}
- $DIR/update-manifest $GITHUB_OWNER $RELEASE_NAME $VERSION $SHA1 $MANIFEST_PATH
+ for MANIFEST_PATH in $(ls manifests/*.yml); do
+   $DIR/update-manifest $GITHUB_OWNER $RELEASE_NAME $VERSION $SHA1 $MANIFEST_PATH
+ done
  git merge --no-edit ${BRANCH}
  git add -A
  git status

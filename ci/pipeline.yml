@@ -267,7 +267,6 @@ jobs:
             NOTIFICATION_OUT: notifications
             BRANCH:        (( grab meta.github.branch ))
             GITHUB_OWNER:  (( grab meta.github.owner ))
-            MANIFEST_PATH: (( grab meta.manifest.path ))
 
             AWS_ACCESS_KEY:       (( grab meta.aws.access_key ))
             AWS_SECRET_KEY:       (( grab meta.aws.secret_key ))
@@ -292,12 +291,14 @@ jobs:
         put: version
         params:
           bump: patch
-      - put: notify
-        params:
-          channel:  (( grab meta.slack.channel ))
-          username: (( grab meta.slack.username ))
-          icon_url: (( grab meta.slack.icon ))
-          text_file: notifications/message
+      - name: notify
+        aggregate:
+        - put: notify
+          params:
+            channel:  (( grab meta.slack.channel ))
+            username: (( grab meta.slack.username ))
+            icon_url: (( grab meta.slack.icon ))
+            text_file: notifications/message
       on_failure:
         put: notify
         params:
