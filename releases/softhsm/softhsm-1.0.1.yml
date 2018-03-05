@@ -1,0 +1,19 @@
+name: softhsm
+version: 1.0.1
+commit_hash: 095dc28
+uncommitted_changes: false
+jobs:
+- name: softhsm
+  version: 962958a8a10a334f00b7ac32312cac0bb9fee016
+  fingerprint: 962958a8a10a334f00b7ac32312cac0bb9fee016
+  sha1: 586c75a9063eb4dcf0d8a6d50befdc205268f6c0
+packages:
+- name: softhsm
+  version: 67a706fa49cbbf589f1dc0a9f869ba3de2241272
+  fingerprint: 67a706fa49cbbf589f1dc0a9f869ba3de2241272
+  sha1: 8abb88546dc447449f6391b85f7b3f671465958e
+  dependencies: []
+license:
+  version: ac77a509d8b020148f8ce7b3ecce592f89c29c87
+  fingerprint: ac77a509d8b020148f8ce7b3ecce592f89c29c87
+  sha1: 79b4685830ad8ce5f701e01041e74723caa8bf00
