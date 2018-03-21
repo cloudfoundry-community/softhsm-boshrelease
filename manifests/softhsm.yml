@@ -34,6 +34,6 @@ update:
 
 releases:
 - name: softhsm
-  version: 1.0.0
-  url: https://github.com/starkandwayne/softhsm-boshrelease/releases/download/v1.0.0/softhsm-1.0.0.tgz
-  sha1: b439705cef039078e1fd16472086d2cc03e4bf49
+  version: 1.0.1
+  url: https://github.com/starkandwayne/softhsm-boshrelease/releases/download/v1.0.1/softhsm-1.0.1.tgz
+  sha1: 4159f4581d4dc31cafbab519b1ef456576275606
